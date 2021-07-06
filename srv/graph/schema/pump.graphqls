@@ -1,0 +1,44 @@
+# GraphQL schema
+
+## User 
+type User {
+  id: ID!
+  email: String!
+}
+
+input NewUser {
+  email: String!
+  password: String!
+} 
+
+input RefreshTokenInput{
+  token: String!
+}
+
+input Login {
+  username: String!
+  password: String!
+}
+
+## Pump
+type Pump {
+  state: Boolean!
+}
+
+input PumpState {
+  state: Boolean!
+} 
+
+## Queries
+type Query {
+  viewPump: Pump!
+  findUsers: [User!]!
+}
+
+## Mutations
+type Mutation {
+  createUser(input: NewUser!): String!
+  login(input: Login!): String!
+  refreshToken(input: RefreshTokenInput!): String!
+  setPumpState(input: PumpState!): Pump!
+}
