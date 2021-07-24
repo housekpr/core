@@ -8,4 +8,5 @@ import "github.com/housekpr/core/srv/graph/model"
 
 type Resolver struct {
 	pump model.Pump
+	tank model.Tank
 }

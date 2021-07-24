@@ -40,24 +40,15 @@ func ReadState() int {
 
 	// Read Value
 	r, _ := l.Value()
-
 	releaseGPIO()
-	// return the GPIO Line Value
-	// inverting because of the relay
-	if r == 1 {
-		return 0
-	} else {
-		return 1
-	}
+	return r
 
 }
 
 func Start() {
 	prepareGPIO()
 
-	// Set the GPIO Line Value to 0 (ON)
-	// inverting because of the relay
-	l.SetValue(0)
+	l.SetValue(1)
 
 	releaseGPIO()
 }
@@ -65,9 +56,7 @@ func Start() {
 func Stop() {
 	prepareGPIO()
 
-	// Set the GPIO Line Value to 1 (OFF)
-	// inverting because of the relay
-	l.SetValue(1)
+	l.SetValue(0)
 
 	releaseGPIO()
 }

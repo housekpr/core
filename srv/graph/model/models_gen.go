@@ -24,6 +24,10 @@ type RefreshTokenInput struct {
 	Token string `json:"token"`
 }
 
+type Tank struct {
+	Level float64 `json:"level"`
+}
+
 type User struct {
 	ID    string `json:"id"`
 	Email string `json:"email"`

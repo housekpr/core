@@ -11,5 +11,9 @@
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
 
-# local CI/CD scripts
+# local CI/CD scripts & binaries
 cicd/local
+srv/server
+
+# MacOS specifics
+.DS_STORE

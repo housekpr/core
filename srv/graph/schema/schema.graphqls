@@ -28,10 +28,16 @@ type Pump {
 input PumpState {
   state: Boolean!
 } 
+## Tank
+
+type Tank {
+  level: Float!
+}
 
 ## Queries
 type Query {
   viewPump: Pump!
+  getTankLevel: Tank!
   findUsers: [User!]!
 }
 

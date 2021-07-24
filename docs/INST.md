@@ -1,10 +1,37 @@
-# Required binaries
+# How to install
 
-## add new "admin" user
-adduser pavel 
-sudo usermod -aG adm,dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev,lxd pavel
-sudo visudo
-# Add NOPASSWD to sudo without pass -> %sudo   ALL=(ALL:ALL) NOPASSWD:ALL
+## Minimum required hardware to run the software
+
+- [Raspberry Pi Zero W](https://www.raspberrypi.org/products/raspberry-pi-zero-w/), [Raspberry Pi 3 Model B+](https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/) or newer.
+- 8GB SD Card or bigger.
+- 5V 2A Power Adapter.
+
+Any other ARMv7 or ARMv8 device that can run Linux Kernel 5.10 or higher and has GPIO ports may work.
+
+## End user installation guide
+
+The instruction below assumes you are using RaspberryPi Zero/3/4 running latest stable Raspbian Minimal/Light installation.
+
+### Prepare an OS user with minumum privileges
+
+    adduser housekpr
+    sudo usermod -aG gpio housekpr
+    sudo su - housekpr 
+    mkdir -p bin
+
+## Installing Housekpr
+
+    // TODO... wget github.com/release/.. ?
+
+
+
+
+## IGNORE ME - DEVELOPER NOTES AND DRAFTS
+    // Is that really needed? minimum permissions better
+    // pi user is member of pi adm dialout cdrom sudo audio video plugdev games users input netdev gpio i2c spi
+    sudo usermod -aG adm,dialout,cdrom,floppy,sudo,audio,dip,video,plugdev,netdev,lxd housekpr
+    sudo visudo
+    # Add NOPASSWD to sudo without pass -> %sudo   ALL=(ALL:ALL) NOPASSWD:ALL
 
 ## Prepare gpio group, if not there already
 ## to avoid https://github.com/fivdi/onoff/issues/3
@@ -41,7 +68,6 @@ cd pigpio-79
 make
 sudo make install
 ## run the tests and make sure they pass!
-
 
 ## install node lts
 

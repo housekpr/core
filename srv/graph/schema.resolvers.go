@@ -9,6 +9,7 @@ import (
 	"log"
 
 	"github.com/housekpr/core/srv/devices/pump"
+	"github.com/housekpr/core/srv/devices/sensors/distance"
 	"github.com/housekpr/core/srv/graph/generated"
 	"github.com/housekpr/core/srv/graph/model"
 )
@@ -48,6 +49,12 @@ func (r *queryResolver) ViewPump(ctx context.Context) (*model.Pump, error) {
 		r.pump.State = pumpState
 	}
 	return &r.pump, nil
+}
+
+func (r *queryResolver) GetTankLevel(ctx context.Context) (*model.Tank, error) {
+	// Get Tank Level
+	r.tank.Level = distance.GetTankLevel()
+	return &r.tank, nil
 }
 
 func (r *queryResolver) FindUsers(ctx context.Context) ([]*model.User, error) {
