@@ -1,62 +1,24 @@
 package pump
 
-import (
-	"github.com/warthog618/gpiod"
-)
-
-var c *gpiod.Chip = nil // GPIO chip global var
-var l *gpiod.Line = nil // GPIO pump control line global var
-
-func prepareGPIO() {
-	var err error = nil // var to check for errors.
-
-	if c == nil {
-		// Get chip0
-		c, err = gpiod.NewChip("gpiochip0")
-		if err != nil {
-			panic(err)
-		}
-	}
-
-	if l == nil {
-		// Request GPIO4 (PIN7) as output
-		l, err = c.RequestLine(4, gpiod.AsOutput())
-		if err != nil {
-			panic(err)
-		}
-	}
-}
-
-func releaseGPIO() {
-	// TODO - figure out how to close properly
-	// l.Close()
-	// c.Close()
-	// l = nil
-	// c = nil
-}
+import "github.com/housekpr/core/srv/devices/gpioctrl"
 
 func ReadState() int {
-	prepareGPIO()
+	l := gpioctrl.GetPumpLine() // Get the pump gpio line reference
 
-	// Read Value
-	r, _ := l.Value()
-	releaseGPIO()
-	return r
+	r, _ := l.Value() // Read the line value
 
+	return r // Return the result
 }
 
 func Start() {
-	prepareGPIO()
+	l := gpioctrl.GetPumpLine() // Get the pump gpio line reference
 
-	l.SetValue(1)
-
-	releaseGPIO()
+	l.SetValue(1) // Change the value to true (1) to start the pump
 }
 
 func Stop() {
-	prepareGPIO()
+	// Get Pump Line
+	l := gpioctrl.GetPumpLine()
 
-	l.SetValue(0)
-
-	releaseGPIO()
+	l.SetValue(0) // Change the value to false (0) to stop the pump
 }

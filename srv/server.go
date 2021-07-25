@@ -8,6 +8,7 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 
+	"github.com/housekpr/core/srv/devices/gpioctrl"
 	"github.com/housekpr/core/srv/devices/pump"
 	"github.com/housekpr/core/srv/graph"
 	"github.com/housekpr/core/srv/graph/generated"
@@ -26,8 +27,10 @@ func main() {
 	}
 	log.Printf("Starting in '%s' environment.", env)
 
-	// Make sure pump is off when starting the app
-	pump.Stop()
+	//
+	initDevices()
+	// todo: move to https://pkg.go.dev/os/signal. No defer on ctrl+c...
+	defer gpioctrl.ReleaseGPIO()
 
 	// Serve the webapp
 	http.Handle("/", http.FileServer(http.Dir("./webapp")))
@@ -43,4 +46,10 @@ func main() {
 	http.Handle("/query", srv)
 
 	log.Fatal(http.ListenAndServe(":"+port, nil))
+}
+
+// Make sure devices are in defined state before proceeding
+func initDevices() {
+	log.Println("Initialising the devices in order to start with defined state.")
+	pump.Stop()
 }

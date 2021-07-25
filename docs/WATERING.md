@@ -1,5 +1,10 @@
 # Watering System Notes
 
+## Introduction
+
+The document below assumes pump is required to push the water. Depending on the particular situation, it may be possible for you to install the water tank high enough to exchange the water pump with a water valve (e.g. [YCWS10-02](https://www.alibaba.com/product-detail/Low-pressure-plastic-water-solenoid-valves_1699906875.html)).
+
+
 ## Pump pinout
 
 By default the app is configured to expect to able to control the pump by setting GPIO4 to High (1). If unsure, on RaspberryPi devices you can find it using the pinout command. More information is available in [RaspberryPi GPIO Documentation](https://www.raspberrypi.org/documentation/usage/gpio/)

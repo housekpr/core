@@ -35,17 +35,17 @@ func (r *mutationResolver) SetPumpState(ctx context.Context, input model.PumpSta
 		pump.Stop()
 	}
 	r.pump.State = input.State
-	log.Println("Setting pump state to", input.State, "completed.")
+	// log.Println("Setting pump state to", input.State, "completed.")
 	return &r.pump, nil
 }
 
 func (r *queryResolver) ViewPump(ctx context.Context) (*model.Pump, error) {
 	// Read the State of the pump from GPIO and convert it to bool
 	var pumpState bool = pump.ReadState() != 0
-	log.Println("Current pump state according to GPIO is", pumpState)
+	log.Printf("Current pump state according to GPIO is '%t'", pumpState)
 	if r.pump.State != pumpState {
-		log.Println("[Warning] The state in the app and in GPIO is not in sync!", pumpState)
-		log.Println("[Warning] Setting the app state to the GPIO state. ")
+		log.Println("[Warning] The state in the app and the actual GPIO are not in sync! ",
+			"Setting the app state to the GPIO state.")
 		r.pump.State = pumpState
 	}
 	return &r.pump, nil
