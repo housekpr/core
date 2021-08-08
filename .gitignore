@@ -13,7 +13,7 @@
 
 # local CI/CD scripts & binaries
 cicd/local
-srv/server
+bin/
 
 # MacOS specifics
 .DS_STORE
